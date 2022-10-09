@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  hyperf:
+    build:
+        context: .
+        dockerfile: .docker/hyperf/Dockerfile
+    working_dir: /app
+    entrypoint: ["php", "bin/hyperf.php", "server:watch"]
+    volumes:
+      - ./:/app
+    ports:
+      - '9501:9501'
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hyperf
+    volumes:
+      - ./.docker/mysql:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
