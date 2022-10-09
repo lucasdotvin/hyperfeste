@@ -1,6 +1,16 @@
 version: '3'
 
 services:
+  composer:
+    build:
+        context: .
+        dockerfile: .docker/composer/Dockerfile
+    working_dir: /app
+    entrypoint: composer
+    command: install
+    volumes:
+      - ./:/app
+
   hyperf:
     build:
         context: .
