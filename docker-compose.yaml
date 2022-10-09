@@ -20,5 +20,5 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: hyperf
     volumes:
-      - ./.docker/mysql:/var/lib/mysql
+      - ./.docker/mysql/data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
