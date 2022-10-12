@@ -1,39 +1,61 @@
-# Introduction
+<h1 align="center">Hyperfeste</h1>
 
-This is a skeleton application using the Hyperf framework. This application is meant to be used as a starting place for those looking to get their feet wet with Hyperf Framework.
+<p align="center">
+<img alt="GitHub" src="https://img.shields.io/github/license/lucasdotvin/hyperfeste">
+<img alt="PHP 8.1" src="https://img.shields.io/badge/php-%3E=8.0-blue">
+</p>
 
-# Requirements
+## About
 
-Hyperf has some requirements for the system environment, it can only run under Linux and Mac environment, but due to the development of Docker virtualization technology, Docker for Windows can also be used as the running environment under Windows.
+This is an example application that intends to demonstrate the basic features from Hyperf.
 
-The various versions of Dockerfile have been prepared for you in the [hyperf/hyperf-docker](https://github.com/hyperf/hyperf-docker) project, or directly based on the already built [hyperf/hyperf](https://hub.docker.com/r/hyperf/hyperf) Image to run.
+## Installation
 
-When you don't want to use Docker as the basis for your running environment, you need to make sure that your operating environment meets the following requirements:  
+Run the following command to install the dependencies inside the Docker container:
 
- - PHP >= 8.0
- - Any of the following network engines
-   - Swoole PHP extension >= 4.5，with `swoole.use_shortname` set to `Off` in your `php.ini`
-   - Swow PHP extension (Beta)
- - JSON PHP extension
- - Pcntl PHP extension
- - OpenSSL PHP extension （If you need to use the HTTPS）
- - PDO PHP extension （If you need to use the MySQL Client）
- - Redis PHP extension （If you need to use the Redis Client）
- - Protobuf PHP extension （If you need to use the gRPC Server or Client）
+```bash
+docker-compose run --rm hyperf composer install
+```
 
-# Installation using Composer
+Copy the `.env.example` file to `.env` and fill in the database credentials:
 
-The easiest way to create a new Hyperf project is to use Composer. If you don't have it already installed, then please install as per the documentation.
+```bash
+cp .env.example .env
+```
 
-To create your new Hyperf project:
+Use the following commands to create the database container and run the migrations:
 
-$ composer create-project hyperf/hyperf-skeleton path/to/install
+```bash
+docker-compose up -d mysql
+docker-compose run --rm hyperf php bin/hyperf.php migrate
+```
 
-Once installed, you can run the server immediately using the command below.
+Now, to run the application, use the following command:
 
-$ cd path/to/install
-$ php bin/hyperf.php start
+```bash
+docker-compose up -d hyperf
+```
 
-This will start the cli-server on port `9501`, and bind it to all network interfaces. You can then visit the site at `http://localhost:9501/`
+> **Note**:
+> In the next times, you'll only need to run `docker-compose up -d` to start the application.
 
-which will bring up Hyperf default home page.
+## Relevant Files
+
+You can check the application routes on the [routes.php](config/routes.php) file. On the [dependencies.php](config/dependencies.php) file, you'll find the configuration for the dependency injection.
+
+It is important to check the [migrations](migrations) folder too, as it contains the database structure.
+
+The files inside the [app](app) folder follow the structure you'd see in a regular MVC application: there is a folder for the controllers, a folder for the models etc.
+
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+
+## Credits
+
+- [Lucas Vinicius](https://github.com/lucasdotvin)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

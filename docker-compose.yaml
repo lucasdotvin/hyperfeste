@@ -1,22 +1,12 @@
 version: '3'
 
 services:
-  composer:
-    build:
-        context: .
-        dockerfile: .docker/composer/Dockerfile
-    working_dir: /app
-    entrypoint: composer
-    command: install
-    volumes:
-      - ./:/app
-
   hyperf:
     build:
         context: .
         dockerfile: .docker/hyperf/Dockerfile
     working_dir: /app
-    entrypoint: ["php", "bin/hyperf.php", "server:watch"]
+    command: ["php", "bin/hyperf.php", "server:watch"]
     volumes:
       - ./:/app
     ports:
